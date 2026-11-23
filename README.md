@@ -1,11 +1,11 @@
-# devx-illos
+# devx-os
 
 The devx illustration skills, for Claude Code and Codex.
 
-- `skills/devx-illos`: the router and the brand rules; shared scripts (video, browser).
-- `skills/devx-illos-glass`: Lucid, isometric edge-lit glass scenes on the blue field (kit, approved examples,
+- `skills/devx-os`: the router and the brand rules; shared scripts (video, browser).
+- `skills/devx-os-glass`: Lucid, isometric edge-lit glass scenes on the blue field (kit, approved examples,
   references, render, new-scene, check).
-- `skills/devx-illos-surfaces`: the art around content on devx pages (surfaces.css, surfaces.mjs, assets, playground).
+- `skills/devx-os-surfaces`: the art around content on devx pages (surfaces.css, surfaces.mjs, assets, playground).
 
 Install, or repair after moving this folder:
 

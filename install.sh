@@ -1,5 +1,5 @@
 #!/bin/sh
-# Links the devx-illos skills into Claude Code (~/.claude/skills) and Codex (~/.agents/skills).
+# Links the devx-os skills into Claude Code (~/.claude/skills) and Codex (~/.agents/skills).
 # Safe to run again: it replaces its own links and refuses to touch a real folder of the same name.
 set -e
 HERE="$(cd "$(dirname "$0")" && pwd -P)"

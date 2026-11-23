@@ -1,4 +1,4 @@
-// The browser the devx-illos scripts use: Playwright from the project you run them in, else from Illos's runtime
+// The browser the devx-os scripts use: Playwright from the project you run them in, else from Illos's runtime
 // folder (~/.config/illos/runtime), else from next to these skills; the installed Chrome, else Playwright's Chromium.
 import { createRequire } from "node:module";
 import { homedir } from "node:os";

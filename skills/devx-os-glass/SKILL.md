@@ -1,11 +1,11 @@
 ---
-name: devx-illos-glass
+name: devx-os-glass
 description: Use when drawing, animating or fixing a devx illustration of an object or system (a hero, a capability or industry picture, a deck graphic) in the Lucid style, the user's approved base from Figma 634:138. Isometric edge-lit glass on the blue devx field, panes that frost what is behind them, rims lit from the top-left, additive inner glows, a few clear glass tiles with white icons. Animated SVG, checked and recorded to video.
 ---
 
 # devx glass: Lucid
 
-Read `../devx-illos/SKILL.md` first: its brand rules apply here too.
+Read `../devx-os/SKILL.md` first: its brand rules apply here too.
 
 Every devx illustration of a thing is drawn in **Lucid**, the user's approved glass sample: Figma file
 `S6XrPqLuruYPOEZrv9Vdne`, node `634:138` (copy: `references/reference-634-138.png`), rebuilt and approved as
@@ -80,7 +80,7 @@ come out the other side); added parts never touch anything (lanes start exactly 
    It runs the Illos checker with this kit and must end "all checks passed" (watch the CPU line). Open the contact
    sheet it writes (`out/<subject>.png`) and compare with the reference.
 5. **Show one at a time,** as a local video beside its reference, before the next:
-   `node <this skill>/../devx-illos/scripts/video.mjs <scene>.svg`. Nothing goes to GitHub until the user asks.
+   `node <this skill>/../devx-os/scripts/video.mjs <scene>.svg`. Nothing goes to GitHub until the user asks.
 
 To use a finished scene on a page, inline its SVG or load it as an `<img>`; it loops on its own, respects reduced
 motion, and a page can pause it with `--illos-play: paused`.

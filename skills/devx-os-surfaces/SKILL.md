@@ -1,11 +1,11 @@
 ---
-name: devx-illos-surfaces
+name: devx-os-surfaces
 description: Use when a devx page, deck or prototype needs the art around its content, the devx site's own recipes. Card art (a flat colour with grain and a flare rising from its foot) with a frosted product panel, the gradient field behind a fold with glass cards on it, icons on a tint of the four number colours, the blue diagram panel (frosted boxes and tiles, white ribbons, the glass puck), field bar charts, clips that fill with a flare, and the stage (field and hummingbird behind a framed panel). CSS plus SVG from surfaces.mjs, with a live playground.
 ---
 
 # devx surfaces
 
-Read `../devx-illos/SKILL.md` first: its brand rules apply here too.
+Read `../devx-os/SKILL.md` first: its brand rules apply here too.
 
 The art the devx site (v30 to v37) draws around its content, made portable: `surfaces.css` (every class starts
 `dx-`), `scripts/surfaces.mjs` (SVG and HTML strings; works in a browser and in Node) and `assets/` (the field

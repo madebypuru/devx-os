@@ -1,19 +1,19 @@
 ---
-name: devx-illos
-description: Use for any devx (devx labs) illustration or page art, in any project, deck or site. It routes to devx-illos-glass (isometric edge-lit glass objects on the blue field, the Lucid style) or devx-illos-surfaces (card art with a rising flare, the gradient field, glass cards, tinted icons, the blue diagram panel, field bar charts, filling clips, the stage), and holds the brand rules both follow.
+name: devx-os
+description: Use for any devx (devx labs) illustration or page art, in any project, deck or site. It routes to devx-os-glass (isometric edge-lit glass objects on the blue field, the Lucid style) or devx-os-surfaces (card art with a rising flare, the gradient field, glass cards, tinted icons, the blue diagram panel, field bar charts, filling clips, the stage), and holds the brand rules both follow.
 ---
 
-# devx illustrations
+# devx-os: devx illustrations
 
 Two kinds of devx art, one skill each. Read this file, then the one you need, before drawing anything.
 
 | You need | Use | Made of |
 | --- | --- | --- |
-| An illustration of a thing or a system: a hero object, a capability picture, a deck graphic that explains how something works | `devx-illos-glass` | An animated SVG scene: isometric, edge-lit glass on the blue devx field (the Lucid style) |
-| The art around content on a page: the top of a card, the colour behind a fold, glass cards on it, icons, a diagram panel, a chart, a progress clip, a framed demo | `devx-illos-surfaces` | CSS plus SVG strings from `surfaces.mjs`, with the field images |
+| An illustration of a thing or a system: a hero object, a capability picture, a deck graphic that explains how something works | `devx-os-glass` | An animated SVG scene: isometric, edge-lit glass on the blue devx field (the Lucid style) |
+| The art around content on a page: the top of a card, the colour behind a fold, glass cards on it, icons, a diagram panel, a chart, a progress clip, a framed demo | `devx-os-surfaces` | CSS plus SVG strings from `surfaces.mjs`, with the field images |
 
-Both skills live in one folder, `/Users/purusharma/devx-illos` (a local git repo). `~/.claude/skills/devx-illos*`
-and `~/.agents/skills/devx-illos*` are links to it, so Claude and Codex read the same files. Change the style there,
+Both skills live in one folder, `/Users/purusharma/devx-os` (a local git repo). `~/.claude/skills/devx-os*`
+and `~/.agents/skills/devx-os*` are links to it, so Claude and Codex read the same files. Change the style there,
 once; never copy a kit into a project and edit the copy.
 
 ## The brand, in rules (both skills)
