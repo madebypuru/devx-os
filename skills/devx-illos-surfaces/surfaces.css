@@ -1,0 +1,103 @@
+/* devx surfaces: the art the devx pages draw around their content, as CSS. Taken from the devx site (v30 to v37).
+   Keep this file next to its assets folder: `node scripts/add.mjs <your-folder>` copies both, and surfaces.mjs, there.
+   Every class starts dx-. Pair it with surfaces.mjs for the SVG parts (card art, panel art, puck, ribbons). */
+:root {
+  --dx-ink: #14162e; --dx-t1: rgba(20,22,46,.92); --dx-t2: rgba(20,22,46,.64); --dx-t3: rgba(20,22,46,.42);
+  --dx-line: rgba(20,22,46,.09); --dx-line-2: rgba(20,22,46,.16);
+  --dx-blue: #658ff8; --dx-pink: #fc88ab; --dx-orange: #fbac73; --dx-green: #96cf70; --dx-teal: #70cce2;
+  --dx-panel: #436bf6; --dx-fringe: #ffe27a;
+  --dx-ease: cubic-bezier(.23,1,.32,1); --dx-spring: cubic-bezier(.34,1.56,.64,1);
+  --dx-text: "Inter Display", Inter, ui-sans-serif, system-ui, sans-serif;
+}
+
+/* ---------- 1. The field behind a whole fold. It bleeds past both sides and its own soft feet, so no edge ever shows.
+   <section class="dx-fold"><div class="dx-field" aria-hidden="true"></div> ...content... </section> */
+.dx-fold { position: relative; overflow-x: clip; }
+.dx-fold > :not(.dx-field):not(.dx-field-side):not(.dx-hero-field) { position: relative; z-index: 1; }
+.dx-field { position: absolute; top: 0; bottom: 0; left: -3.33%; width: 120%; pointer-events: none; background: url(assets/field.webp) 0 0 / 100% 100% no-repeat; }
+/* the same field, mirrored and a touch softer, for the next fold that carries one, so two never look alike */
+.dx-field.flip { transform: scaleX(-1); filter: blur(3px); }
+/* only behind the top right of a fold (behind a heading and the first row of cards) */
+.dx-field-side { position: absolute; top: 0; left: 32.98%; width: 67.02%; height: 895px; max-height: 100%; pointer-events: none; background: url(assets/side.webp) 0 0 / 100% 100% no-repeat; }
+/* the hero: the field off the top right, beside the words, never under them */
+.dx-hero-field { position: absolute; z-index: 0; left: calc(50% - 40px); top: -428px; width: 1506px; height: 1266px; filter: blur(13px); pointer-events: none; }
+.dx-hero-field i { position: absolute; left: 1.84%; top: 8.68%; width: 96.94%; height: 82.65%; background: url(assets/field.webp) 0 0 / 100% 100% no-repeat; }
+@media (max-width: 1180px) { .dx-hero-field { left: 48%; } }
+@media (max-width: 960px) { .dx-hero-field { left: -10%; top: -120px; width: 120%; height: 440px; filter: blur(18px); } }
+@media (max-width: 860px) { .dx-field-side { left: 0; width: 100%; height: 420px; opacity: .7; } }
+/* the field is stretched to its fold, so a fold that carries one needs real height: about 640px or more (the site's are 690 to 920) */
+.dx-fold.tall { min-height: 640px; }
+
+/* ---------- 2. Glass on the field: white at 80%, frosted. Small cards blur 12 at radius 12; number cards blur 6 at radius 20 */
+.dx-glass { padding: 24px; border-radius: 12px; background: rgba(255,255,255,.8); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); }
+.dx-glass.lg { border-radius: 20px; -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); box-shadow: 0 0 0 1px rgba(0,0,0,.08), 0 18px 40px -30px rgba(20,22,46,.35); }
+
+/* ---------- 3. An icon on a tint of one of the four colours: <span class="dx-icon" style="--oc:var(--dx-pink)"><svg>...</svg></span> */
+.dx-icon { flex: none; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 10px; background: color-mix(in srgb, var(--oc, var(--dx-blue)) 20%, transparent); color: color-mix(in srgb, var(--oc, var(--dx-blue)) 82%, var(--dx-ink)); box-shadow: inset 0 0 0 1px rgba(255,255,255,.65); }
+.dx-icon.plain { background: rgba(20,22,46,.07); color: var(--dx-ink); box-shadow: none; }
+.dx-icon svg { width: 19px; height: 19px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ---------- 4. A card with art on top: surfaces.mjs cardArt() in .dx-card-art, a frosted product panel on it, words below on glass */
+.dx-card { display: flex; flex-direction: column; border-radius: 12px; overflow: hidden; background: rgba(255,255,255,.8); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); box-shadow: inset 0 0 0 1px var(--dx-line); }
+.dx-card-art { position: relative; height: 280px; margin: 1px 1px 0; border-radius: 11px 11px 0 0; overflow: hidden; }
+.dx-card-art > svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.dx-card-body { padding: 22px 24px 18px; }
+.dx-panel { position: absolute; z-index: 1; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 70%; padding: 14px; border-radius: 14px; background: rgba(255,255,255,.82); -webkit-backdrop-filter: blur(14px) saturate(1.2); backdrop-filter: blur(14px) saturate(1.2); box-shadow: 0 0 0 1px rgba(255,255,255,.7), 0 18px 40px -18px rgba(20,22,46,.4); font: 400 13.5px/1.35 var(--dx-text); color: var(--dx-t2); transition: transform .6s var(--dx-ease); }
+.dx-card:hover .dx-panel { transform: translate(-50%, -52%); }
+.dx-panel .vh { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; font: 600 12.5px/1.2 var(--dx-text); color: var(--dx-ink); }
+.dx-panel .row { display: flex; align-items: center; gap: 8px; padding: 6px 0; }
+.dx-panel .row + .row { border-top: 1px solid var(--dx-line); }
+.dx-panel .sp { margin-left: auto; }
+.dx-panel .who { display: flex; align-items: center; gap: 7px; margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--dx-line); }
+.dx-panel .ck { flex: none; display: grid; place-items: center; width: 16px; height: 16px; border-radius: 50%; background: #eefbec; color: #2f8a49; }
+.dx-panel .ck svg { width: 9px; height: 9px; fill: none; stroke: currentColor; stroke-width: 3; }
+.dx-panel .bar { position: relative; flex-basis: 100%; height: 8px; margin-top: 7px; border-radius: 999px; background: #f3f3f0; overflow: hidden; }
+.dx-panel .bar i { position: absolute; inset: 0 auto 0 0; border-radius: 999px; background: var(--c, var(--dx-blue)); }
+.dx-tag { display: inline-flex; align-items: center; height: 20px; padding: 0 7px; border-radius: 6px; background: #f3f3f0; font: 500 11px/1 var(--dx-text); color: var(--dx-t2); white-space: nowrap; }
+.dx-tag.ok { background: #e3f6e7; color: #23864a; } .dx-tag.warn { background: #ffe8d9; color: #a8461a; } .dx-tag.blue { background: #e1e7fe; color: #2f55dd; }
+
+/* ---------- 5. A chart whose bars are windows onto one field (surfaces.mjs fieldBars). Change a bar's height; the field stays put */
+.dx-bars { container-type: size; position: relative; height: 128px; display: grid; grid-template-columns: repeat(var(--n), minmax(0, 1fr)); align-items: end; }
+.dx-bars.few { gap: 6px; }
+.dx-bars i { display: block; height: 10%; background: url(assets/field-soft.webp) no-repeat; background-size: calc(var(--n) * 100%) calc(100cqh * 2.3); background-position: calc(var(--k) / max(var(--n) - 1, 1) * 100%) calc(100% + 100cqh * .62); filter: saturate(1.6) contrast(1.05); transition: height .5s var(--dx-ease);
+  -webkit-mask-image: linear-gradient(180deg, rgba(0,0,0,.12) 0, #000 34%); mask-image: linear-gradient(180deg, rgba(0,0,0,.12) 0, #000 34%); }
+.dx-bars-line { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.dx-bars-line path { fill: none; stroke: var(--dx-ink); stroke-width: 1.5; stroke-dasharray: 5 6; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+
+/* ---------- 6. A clip that fills: one flat colour with grain; a bright flare rides its edge while it fills (add class live) */
+.dx-clip { position: relative; display: flex; align-items: center; gap: 8px; height: 48px; padding: 0 12px; border-radius: 10px; overflow: hidden; background: rgba(20,22,46,.03); box-shadow: inset 0 0 0 1px var(--dx-line); font: 500 15px/1 var(--dx-text); color: var(--dx-ink); }
+.dx-clip > :not(.dx-clip-fill) { position: relative; z-index: 1; }
+.dx-clip-fill { position: absolute; inset: 0; clip-path: inset(0 calc((1 - var(--f, 0)) * 100%) 0 0); background: linear-gradient(color-mix(in srgb, var(--cc) 84%, transparent), color-mix(in srgb, var(--cc) 84%, transparent)), url(assets/grain.png), var(--cc); background-blend-mode: normal, overlay, normal; }
+.dx-clip::after { content: ""; position: absolute; z-index: 0; top: -6px; bottom: -6px; left: calc(var(--f, 0) * 100%); width: 64px; margin-left: -64px; opacity: 0; pointer-events: none; filter: blur(7px); background: linear-gradient(90deg, transparent, rgba(255,255,255,.75) 62%, #fff3b8 88%, var(--dx-fringe)); transition: opacity .18s ease; }
+.dx-clip.live::after { opacity: 1; }
+
+/* ---------- 7. A diagram on one devx-blue panel: surfaces.mjs cardArt(panel) behind, frosted boxes and tiles, white ribbons, the glass puck */
+.dx-diagram { position: relative; overflow: hidden; padding: 20px 24px 96px; border-radius: 20px; color: #fff; }
+.dx-diagram > .sx-art { position: absolute; inset: 0; z-index: 0; width: 100%; height: 100%; }
+.dx-diagram > :not(.sx-art) { position: relative; z-index: 1; }
+.dx-frost { padding: 12px 14px 14px; border-radius: 16px; background: rgba(255,255,255,.1); box-shadow: inset 0 0 0 1px rgba(255,255,255,.24); }
+.dx-frost h4 { margin: 0 0 8px; font: 600 16px/22px var(--dx-text); color: #fff; }
+.dx-tile { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 7px; min-height: 84px; padding: 0 10px; border-radius: 12px; background: rgba(255,255,255,.14); box-shadow: inset 0 0 0 1px rgba(255,255,255,.3); text-align: center; font: 500 14px/1.25 var(--dx-text); color: #fff; }
+.dx-tile svg { width: 21px; height: 21px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.dx-pill { display: inline-flex; align-items: center; height: 32px; padding: 0 12px; border-radius: 999px; background: rgba(255,255,255,.14); box-shadow: inset 0 0 0 1px rgba(255,255,255,.34); font: 500 14px/1 var(--dx-text); color: #fff; }
+.dx-puck { display: block; width: 260px; height: 150px; overflow: visible; }
+/* ribbons: <svg class="dx-ribbons live" viewBox="0 0 W H" preserveAspectRatio="none">{ribbon(d, k) for each path}</svg> */
+.dx-ribbons { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.dx-ribbons path { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.dx-ribbons .rb { stroke: rgba(255,255,255,.2); stroke-width: 7; vector-effect: non-scaling-stroke; }
+.dx-ribbons .rl { stroke: #fff; stroke-width: 1.5; vector-effect: non-scaling-stroke; }
+.dx-ribbons .rp { stroke: var(--dx-fringe); stroke-width: 3; stroke-dasharray: .05 .95; stroke-dashoffset: 1; opacity: 0; transition: opacity .4s ease; }
+.dx-ribbons.live .rp { opacity: 1; animation: dx-run 2.6s linear infinite; animation-delay: calc(var(--k, 0) * -.37s); }
+@keyframes dx-run { to { stroke-dashoffset: 0; } }
+/* narrow screens: the boxes stack and the ribbons go; join stages with a short white line instead (.dx-join) */
+@media (max-width: 1180px) { .dx-ribbons { display: none; } }
+.dx-join { display: block; width: 1.5px; height: 34px; margin: 0 auto; background: #fff; }
+
+/* ---------- 8. A stage: the field rising behind a framed panel (a chat, a demo), the hummingbird off its left edge */
+.dx-stage { position: relative; overflow: hidden; padding: 64px 24px 63px; border-radius: 12px; background: #fff; }
+.dx-stage-field { position: absolute; left: -11.59%; top: 27.02%; width: 138.57%; height: 130.77%; pointer-events: none; background: url(assets/field.webp) 0 0 / 100% 100% no-repeat; }
+.dx-stage-bird { position: absolute; left: -23.16%; top: 35.2%; width: 49.5%; height: auto; aspect-ratio: 1; object-fit: cover; mix-blend-mode: overlay; transform: scaleX(-1); pointer-events: none; }
+.dx-stage > :not(.dx-stage-field):not(.dx-stage-bird) { position: relative; z-index: 1; }
+@media (max-width: 640px) { .dx-stage { padding: 16px 10px; } .dx-stage-bird { display: none; } .dx-stage-field { left: -40%; width: 180%; top: 30%; } }
+
+@media (prefers-reduced-motion: reduce) { .dx-ribbons.live .rp { animation: none; opacity: 0; } .dx-bars i, .dx-panel { transition: none; } }

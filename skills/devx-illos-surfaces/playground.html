@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>devx surfaces</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="surfaces.css">
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #fff; color: var(--dx-ink); font: 400 15px/1.5 var(--dx-text); }
+  main { width: min(1200px, calc(100% - 32px)); margin: 0 auto; padding: 56px 0 120px; }
+  h1 { margin: 0; font: 600 30px/1.2 var(--dx-text); letter-spacing: -.02em; }
+  .lead { margin: 8px 0 0; color: var(--dx-t2); }
+  section.p { margin-top: 64px; }
+  section.p > h2 { margin: 0; font: 600 21px/1.25 var(--dx-text); letter-spacing: -.01em; }
+  section.p > p { margin: 4px 0 18px; color: var(--dx-t2); max-width: 720px; }
+  .ctl { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px; margin: 0 0 16px; font-size: 14px; color: var(--dx-t2); }
+  .ctl label { display: inline-flex; align-items: center; gap: 8px; }
+  .ctl input[type=range] { width: 140px; }
+  .ctl button { height: 32px; padding: 0 12px; border: 0; border-radius: 8px; background: rgba(20,22,46,.06); font: 500 13.5px/1 var(--dx-text); color: var(--dx-ink); cursor: pointer; }
+  .ctl button:hover { background: rgba(20,22,46,.1); }
+  .sw { display: inline-flex; gap: 6px; }
+  .sw button { width: 26px; height: 26px; padding: 0; border-radius: 50%; box-shadow: inset 0 0 0 2px rgba(255,255,255,.9); }
+  .sw button[aria-pressed=true] { box-shadow: 0 0 0 2px var(--dx-ink), inset 0 0 0 2px #fff; }
+  .grid2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+  .grid3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+  .dx-card-body h3 { margin: 0; font: 600 21px/1.25 var(--dx-text); letter-spacing: -.01em; }
+  .dx-card-body p, .dx-glass p { margin: 8px 0 0; color: var(--dx-t2); }
+  .dx-glass h3 { margin: 14px 0 0; font: 600 19px/1.3 var(--dx-text); }
+  .fold { display: flex; align-items: center; padding: 120px 0; }
+  .num { display: block; margin-top: 16px; font: 500 40px/1 var(--dx-text); letter-spacing: -.03em; }
+  .dg-sys { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; }
+  .dg-mid { display: flex; justify-content: center; padding: 70px 0 0; }
+  .dg-team { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; width: min(640px, 100%); margin: 70px auto 0; }
+  .dg-team .dx-tile { min-height: 70px; flex-direction: row; justify-content: flex-start; gap: 12px; padding: 0 16px; text-align: left; }
+  .dg-flow { position: relative; }
+  .clips { display: grid; gap: 8px; }
+  .dg-j { display: none; } @media (max-width: 1180px) { .dg-j { display: block; } }
+  .stage-card { max-width: 560px; margin: 0 auto; padding: 22px; border-radius: 16px; background: #fff; box-shadow: 0 0 0 1px rgba(20,22,46,.08), 0 24px 60px -30px rgba(20,22,46,.4); }
+  @media (max-width: 1180px) { .dg-mid { padding-top: 0; } .dg-team { margin-top: 0; } }
+  @media (max-width: 860px) { .grid2, .grid3 { grid-template-columns: 1fr; } .dg-sys { grid-template-columns: 1fr 1fr; } }
+</style>
+</head>
+<body>
+<main>
+  <h1>devx surfaces</h1>
+  <p class="lead">The art around devx content, live. Change a control to see a variant; Copy SVG gives you that exact drawing.</p>
+
+  <section class="p" id="cards">
+    <h2>Card art</h2>
+    <p>One flat colour with grain, dissolving at its foot into the card. A frosted product panel sits on it.</p>
+    <div class="ctl"><span class="sw" id="c-sw"></span><label>Seed <input type="range" id="c-seed" min="1" max="400" value="61"></label><label>Rise <input type="range" id="c-rise" min="0.6" max="1.6" step="0.05" value="1"></label><button id="c-copy">Copy SVG</button></div>
+    <div class="grid2" id="c-out"></div>
+  </section>
+
+  <section class="p">
+    <h2>Field and glass</h2>
+    <p>The field behind a whole fold, with glass cards and tinted icons on it. It bleeds past the edges, so no edge shows.</p>
+  </section>
+  <section class="dx-fold tall fold"><div class="dx-field" aria-hidden="true"></div>
+    <div style="width:min(1200px,calc(100% - 32px));margin:0 auto;flex:1"><div class="grid3" id="g-out"></div></div>
+  </section>
+
+  <section class="p">
+    <h2>Diagram panel</h2>
+    <p>One devx-blue panel: frosted boxes and tiles, white ribbons with rounded corners, the glass puck. Light runs down the ribbons.</p>
+    <div class="ctl"><label><input type="checkbox" id="d-live" checked> Light on the ribbons</label><button id="d-copy">Copy panel SVG</button></div>
+    <div class="dx-diagram" id="d-out"></div>
+  </section>
+
+  <section class="p">
+    <h2>Field bars</h2>
+    <p>Bars are windows onto one field, so colour flows through the chart as the values change.</p>
+    <div class="ctl"><label>Without AI <input type="range" id="b-t" min="0" max="100" value="0"> With AI</label></div>
+    <div class="grid2"><div class="dx-glass" style="background:#fff;box-shadow:inset 0 0 0 1px var(--dx-line)"><h3 style="margin:0">Compliance cost</h3><div style="margin-top:20px;position:relative" id="b-out"></div></div>
+      <div class="dx-glass" style="background:#fff;box-shadow:inset 0 0 0 1px var(--dx-line)"><h3 style="margin:0">Three checks</h3><div style="margin-top:20px" id="b-out3"></div></div></div>
+  </section>
+
+  <section class="p">
+    <h2>Clips</h2>
+    <p>Each fills in one flat colour with grain; a flare rides its edge while it fills.</p>
+    <div class="ctl"><label>Progress <input type="range" id="k-t" min="0" max="100" value="55"></label></div>
+    <div class="clips" id="k-out"></div>
+  </section>
+
+  <section class="p">
+    <h2>Stage</h2>
+    <p>The field rising behind a framed panel, the hummingbird off its left edge.</p>
+    <div class="dx-stage"><div class="dx-stage-field" aria-hidden="true"></div><img class="dx-stage-bird" src="assets/bird.webp" alt="">
+      <div class="stage-card"><b>Ask devx</b><p style="margin:8px 0 0;color:var(--dx-t2)">Any framed panel sits here: a chat, a demo, a form.</p></div></div>
+  </section>
+</main>
+<script type="module">
+import { cardArt, CARD_FIELD, PANEL, NUMBER, puck, fanIn, fanOut, ribbon, fieldBars, clip } from "./scripts/surfaces.mjs";
+const $ = (s) => document.querySelector(s);
+const IC = { shield: '<path d="M12 3l7 3v5.5c0 4.5-3 7.8-7 9.5-4-1.7-7-5-7-9.5V6l7-3z"/><path d="M9 12l2 2 4-4"/>', doc: '<path d="M7 3h7l5 5v11a2 2 0 01-2 2H7a2 2 0 01-2-2V5a2 2 0 012-2z"/><path d="M14 3v5h5M9 13h6M9 17h4"/>', user: '<circle cx="12" cy="8" r="4"/><path d="M4.5 20a7.5 7.5 0 0115 0"/>', check: '<path d="M5 12.5l4.5 4.5L19 7.5"/>', bars: '<path d="M5 20V10M12 20V4M19 20v-7"/>', layers: '<path d="M12 3.5l8.5 4.5L12 12.5 3.5 8 12 3.5z"/><path d="M3.5 12.5L12 17l8.5-4.5"/><path d="M3.5 16.5L12 21l8.5-4.5"/>' };
+const svg = (n) => `<svg viewBox="0 0 24 24" aria-hidden="true">${IC[n]}</svg>`;
+const copy = (s) => navigator.clipboard?.writeText(s.replace("<svg ", '<svg xmlns="http://www.w3.org/2000/svg" '));
+
+// card art
+let ci = 0;
+$("#c-sw").innerHTML = CARD_FIELD.map(([c], k) => `<button style="background:${c}" aria-label="Colour ${k + 1}" aria-pressed="${k === 0}" data-k="${k}"></button>`).join("");
+const panel = `<div class="dx-panel"><div class="vh"><span>AML alerts, this morning</span><span class="dx-tag">Sample</span></div>
+  <div class="row">Alert 48213<span class="sp"><span class="dx-tag ok">Close, with reasons</span></span></div>
+  <div class="row">Alert 48215<span class="sp"><span class="dx-tag warn">Escalate to L2</span></span></div>
+  <div class="row">Alert 48217<span class="sp"><span class="dx-tag blue">Draft the STR</span></span></div></div>`;
+let lastCard = "";
+function cards() {
+  const seed = +$("#c-seed").value, rise = +$("#c-rise").value;
+  const a = cardArt({ k: "a", col: CARD_FIELD[ci][0], acc: CARD_FIELD[ci][1], seed, rise });
+  const b = cardArt({ k: "b", col: CARD_FIELD[(ci + 1) % 5][0], acc: CARD_FIELD[(ci + 1) % 5][1], seed: seed + 13, rise });
+  lastCard = a;
+  $("#c-out").innerHTML = [a, b].map((art, k) => `<article class="dx-card"><div class="dx-card-art">${art}${panel}</div><div class="dx-card-body"><h3>${k ? "Credit Underwriting" : "AML Alert Triage"}</h3><p>${k ? "Spreads financials and drafts the memo." : "Does the L1 investigation and writes a reasoned recommendation."}</p></div></article>`).join("");
+}
+$("#c-sw").addEventListener("click", (e) => { const b = e.target.closest("button"); if (!b) return; ci = +b.dataset.k; [...$("#c-sw").children].forEach((x) => x.setAttribute("aria-pressed", x === b)); cards(); });
+["#c-seed", "#c-rise"].forEach((s) => $(s).addEventListener("input", cards));
+$("#c-copy").addEventListener("click", () => copy(lastCard));
+cards();
+
+// field and glass
+$("#g-out").innerHTML = [["shield", "50–70%", "fewer analyst hours per alert", NUMBER.blue], ["bars", "30–50%", "faster credit decisions", NUMBER.pink], ["user", "50%+", "faster onboarding", NUMBER.green]]
+  .map(([i, n, t, c]) => `<div class="dx-glass lg"><span class="dx-icon" style="--oc:${c}">${svg(i)}</span><span class="num">${n}</span><p>${t}</p></div>`).join("");
+
+// diagram
+const W = 1152, xs = [0, 1, 2, 3, 4].map((k) => 14 + (k + 0.5) * (W - 28) / 5), mid = W / 2;
+const routes = [...fanIn({ xs, mid, y0: 120, bus: 160, y1: 230 }), ...fanOut({ mid, xs: [mid - 165, mid + 165], y0: 330, bus: 380, y1: 450 })];
+const panelArt = cardArt({ k: "panel", col: PANEL[0], acc: PANEL[1], W: 1200, H: 760, rise: 1.1, seed: 29, wide: [170, 300], blur: 18, foot: 70 });
+$("#d-out").innerHTML = `${panelArt}<div class="dg-flow"><svg class="dx-ribbons${$("#d-live").checked ? " live" : ""}" viewBox="0 0 ${W} 520" preserveAspectRatio="none" aria-hidden="true">${routes.map((d, k) => ribbon(d, k)).join("")}</svg>
+  <div class="dx-frost"><h4>Your systems</h4><div class="dg-sys">${["Core banking", "Loan origination", "Payments", "Claims", "CRM"].map((t, k) => `<div class="dx-tile">${svg(["layers", "doc", "bars", "shield", "user"][k])}${t}</div>`).join("")}</div></div>
+  <i class="dx-join dg-j"></i><div class="dg-mid">${puck()}</div><i class="dx-join dg-j"></i>
+  <div class="dx-frost dg-team"><div class="dx-tile">${svg("check")}Within limits you set</div><div class="dx-tile">${svg("user")}A recommendation to a person</div></div></div>`;
+$("#d-live").addEventListener("change", (e) => $(".dx-ribbons").classList.toggle("live", e.target.checked));
+$("#d-copy").addEventListener("click", () => copy(panelArt));
+
+// bars
+const FROM = [12, 16, 21, 27, 34, 42, 50, 59, 68, 77, 87, 96], TO = [12, 13, 15, 16, 18, 19, 21, 22, 24, 25, 26, 28];
+$("#b-out").innerHTML = fieldBars(FROM) + `<svg class="dx-bars-line" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M0 74 L100 40"/></svg>`;
+$("#b-out3").innerHTML = fieldBars([8, 8, 8]);
+$("#b-out3 .dx-bars").classList.add("few");
+$("#b-t").addEventListener("input", (e) => {
+  const t = e.target.value / 100;
+  $("#b-out").querySelectorAll("i").forEach((b, k) => (b.style.height = FROM[k] + (TO[k] - FROM[k]) * t + "%"));
+  $("#b-out3").querySelectorAll("i").forEach((b, k) => (b.style.height = (t >= [.2, .5, .8][k] ? 90 : 8) + "%"));
+});
+
+// clips
+const steps = [["Discovery call", NUMBER.blue], ["Outcome Sprint", NUMBER.pink], ["Shadow, then live", NUMBER.orange], ["Scale", NUMBER.green]];
+function clips() {
+  const p = $("#k-t").value / 100 * 4;
+  $("#k-out").innerHTML = steps.map(([t, c], k) => { const f = Math.max(0, Math.min(1, p - k)); return clip(t, { color: c, f, live: f > 0 && f < 1 }); }).join("");
+}
+$("#k-t").addEventListener("input", clips);
+clips();
+</script>
+</body>
+</html>
