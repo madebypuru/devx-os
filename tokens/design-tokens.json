@@ -1,0 +1,63 @@
+{
+  "status": "observed-working",
+  "source": "DevX website Figma; contextual study, not exported native Figma variables",
+  "note": "Figma local variable inventory returned zero variables. Names below are proposed.",
+  "color": {
+    "ink": "#14162E",
+    "white": "#FFFFFF",
+    "surfaceCool": "#EEF0F8",
+    "surfaceWarm": "#F3F3F0",
+    "green": "#2E7D45",
+    "yellow": "#FFE27A",
+    "lavender": "#B7A6F5",
+    "pink": "#FC88AB",
+    "blueLight": "#9DB8F7",
+    "blueStrong": "#4D7ADA",
+    "orange": "#FBAC73",
+    "cyan": "#7FD3EA"
+  },
+  "typography": {
+    "display": {
+      "family": "CooperL",
+      "style": "Light"
+    },
+    "ui": {
+      "family": "InterD",
+      "styles": [
+        "Regular",
+        "Medium",
+        "Semi Bold"
+      ]
+    },
+    "websiteExamplesPx": {
+      "hero": {
+        "size": 57.12,
+        "lineHeight": 61.12
+      },
+      "section": {
+        "size": 46,
+        "lineHeight": 50.6
+      },
+      "body": {
+        "size": 17,
+        "lineHeight": 27.2
+      },
+      "card": {
+        "size": 21,
+        "lineHeight": 26.25
+      }
+    }
+  },
+  "websiteGeometryPx": {
+    "canvas": 1428,
+    "content": 1200,
+    "sectionSpacingApprox": 120,
+    "headingToContentApprox": 56,
+    "cardGapApprox": 14,
+    "cardPaddingApprox": [
+      24,
+      28
+    ]
+  },
+  "presentation": "Do not apply website pixel dimensions literally to slides."
+}
