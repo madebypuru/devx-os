@@ -12,9 +12,10 @@ Two kinds of devx art, one skill each. Read this file, then the one you need, be
 | An illustration of a thing or a system: a hero object, a capability picture, a deck graphic that explains how something works | `devx-os-glass` | An animated SVG scene: isometric, edge-lit glass on the blue devx field (the Lucid style) |
 | The art around content on a page: the top of a card, the colour behind a fold, glass cards on it, icons, a diagram panel, a chart, a progress clip, a framed demo | `devx-os-surfaces` | CSS plus SVG strings from `surfaces.mjs`, with the field images |
 
-Both skills live in one folder, `/Users/purusharma/devx-os` (a local git repo). `~/.claude/skills/devx-os*`
-and `~/.agents/skills/devx-os*` are links to it, so Claude and Codex read the same files. Change the style there,
-once; never copy a kit into a project and edit the copy.
+All three skills live in one repo (github.com/madebypuru/devx-os, cloned wherever the user keeps it; on the
+user's Mac, `/Users/purusharma/devx-os`). Its `install.sh` links each skill into `~/.claude/skills` (Claude Code) and
+`~/.agents/skills` (Codex), so both read the same files. Change the style there, once; never copy a kit into a
+project and edit the copy.
 
 ## The brand, in rules (both skills)
 
